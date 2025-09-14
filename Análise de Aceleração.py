@@ -37,11 +37,17 @@ theta_4 = 2*atan((-B+m*sqrt(B**2-4*A*C))/(2*A))
 omega_3 = L2*omega_2/L3 * sin(theta_4-theta_2)/sin(theta_3-theta_4)
 omega_4 = L2*omega_2/L4 * sin(theta_2-theta_3)/sin(theta_4-theta_3)
 
+# velocidade (A)
+v_Ax = L2*omega_2*(-sin(theta_2))
+v_Ay = L2*omega_2*cos(theta_2)
+v_A = sqrt(v_Ax**2 + v_Ay**2)
+arg_v_A = atan(v_Ay/v_Ax)+pi if atan(v_Ay/v_Ax)<0 else atan(v_Ay/v_Ax)
+
 # aceleração (A)
 a_Ax = (-L2)*alpha_2*sin(theta_2)-L2*omega_2**2*cos(theta_2)
 a_Ay = L2*alpha_2*cos(theta_2)-L2*omega_2**2*sin(theta_2)
 a_A = sqrt(a_Ax**2+a_Ay**2)
-arg_a_A = atan((a_Ay/a_Ax))
+arg_a_A = atan(a_Ay/a_Ax)
 
 " A B C D E F "
 A = c*sin(theta_4)
@@ -65,11 +71,23 @@ F = (
 alpha_3 = (C*D-A*F)/(A*E-B*D)
 alpha_4 = (C*E-B*F)/(A*E-B*D)
 
+# velocidade (B)
+v_Bx = L4*omega_4*(-sin(theta_4))
+v_By = L4*omega_4*cos(theta_4)
+v_B = sqrt(v_Bx**2 + v_By**2)
+arg_v_B = atan(v_By/v_Bx)+pi if atan(v_By/v_Bx)<0 else atan(v_By/v_Bx)
+
 # aceleração (B)
 a_Bx = -L4*alpha_4*sin(theta_4) - L4*omega_4**2*cos(theta_4)
 a_By = L4*alpha_4*cos(theta_4) - L4*omega_4**2*sin(theta_4)
 a_B = sqrt(a_Bx**2 + a_By**2)
 arg_a_B = atan((a_By/a_Bx))
+
+# velocidade (P)
+v_Px = R_pa*omega_3*(-sin(theta_3+delta_3))
+v_Py = R_pa*omega_3*(cos(theta_3+delta_3))
+v_P = sqrt((v_Px+v_Ax)**2+(v_Py+v_Ay)**2)
+arg_v_P = atan((v_Py+v_Ay)/(v_Px+v_Ax))
 
 # aceleração (P)
 a_Px = -R_pa*alpha_3*sin(theta_3+delta_3) - R_pa*omega_3**2*cos(theta_3+delta_3)
